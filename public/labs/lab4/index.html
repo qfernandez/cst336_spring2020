@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>AJAX: Sign Up Page</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</head>
+<script>
+    
+    var usernameAvailable = false;
+    
+    //Displaying City from API after typing a zip code
+    $("#zip").on("change",function(){
+        
+        // alert($("#zip").val());
+        $.ajax({
+            method: "GET",
+            url: "https://cst336.herokuapp.com/projects/api/cityInfoAPI.php?zip=93955",
+            dataType: "json",
+            data: { "zip": $("#zip").val() },
+            success: function(result,status) {
+                
+                //alert(result);
+                $("$#city").html(result.city);
+                
+            }
+        });//ajax
+        
+    });//zip
+    
+    $("#state").on("change",function(){
+        
+        //alert($("#state").val());
+         $.ajax({
+            method: "GET",
+            url: "https://cst336.herokuapp.com/projects/api/countyListAPI.php?state=ca",
+            dataType: "json",
+            data: { "state": $("#state").val() },
+            success: function(result,status) {
+                
+                //alert(result);
+                $("#county").html("<option> Select One </option>")
+                for (let i=0; i < result.length; i++){
+                    $("#county").append("<option" + result[i].county + "</option>")
+                }
+                
+            }
+         });
+         
+    });//state
+    
+    $("username").change(function() {
+        
+        //alert($("username").val());
+        $.ajax({
+            method:"GET",
+            url: "https://cst336.herokuapp.com/projects/api/usernamesAPI.php?username=eeny",
+            dataType: "json",
+            data: {"username":$("#username").val()},
+            success: function(result,status){
+                
+                if(result.available){
+                    $("#usernameError").html("Username is available");
+                    $("#usernameError").css("color","green");
+                    usernameAvailable = true;
+                }
+                else{
+                    $("#usernameError").html("Username is unavailable!");
+                    $("#usernameError").css("color", "red");
+                    usernameAvailable = false;
+                }
+                
+            }
+        })//ajax
+    });//username
+    
+    $("#signupForm").on("submit", function(e) {
+        alert("Submitting form...");
+        e.preventDefault();
+    });
+    
+    function isFormValid(){
+        isValid = true;
+        if(!usernameAvailable){
+            isValid = false;
+        }
+        if($("#username").val().length == 0){
+            isValid = false;
+            $("#usernameError").html("Username is required");
+        }
+        if($("#password").val() != $("#passwordAgain").val()){
+            $("#passwordAgainError").html("Password Mismatch!");
+            isValid = false;
+        }
+        
+        return isValid;
+    }
+    
+</script>
+
+<body id="dummybodyid">
+  <h1> Sign Up Form </h1>
+<form id="signupForm" method="post" action="welcome.html">
+  First Name: <input type="text" name="fName"><br>
+  Last Name: <input type="text" name="lName"><br>
+  Gender: <input type="radio" name="gender" value="m"> Male
+          <input type="radio" name="gender" value="f"> Female<br><br>
+          
+  Zip Code: <input type="text" name="zip" id="zip"><br>
+  City: <span id="city"></span><br>
+  Latitude: <span id="latitude"></span><br>
+  Longitude: <span id="longitude"></span><br><br>
+  
+  State:
+  <select id="state" name="state">
+          <option value="">Select One</option>
+          <option value="ca"> California</option>
+          <option value="ny"> New York</option>
+          <option value="tx"> Texas</option>
+  </select><br/>
+  
+  Select a County: <select id="county"></select><br><br>
+  
+  Desired Username: <input type="text" id="username" name="username"><br>
+  Password: <input type="password" id="password" name="password"><br>
+  Password Again: <input type="password" id="passwordAgain"><br>
+  
+  <input type="submit" value="Sign Up!">
+  </form>
+</body>
+
+</html>

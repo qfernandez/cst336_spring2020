@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title> Pixabay API Demo </title>
+<title> Midterm Review </title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
 body {
@@ -27,8 +27,8 @@ $.ajax({
     url: "https://dog.ceo/api/breeds/image/random/" + keyword,
     dataType: "json",
     success: function(data, status) {
-        let randomImage = Math.floor(Math.random() * data.hits.length);
         $('#image').html("<img src='"+ data.hits[ randomImage ].message +"' width='500'>");
+        console.log("Test");
         }
     }); //ajax 
 }//searchImage()

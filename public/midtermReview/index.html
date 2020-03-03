@@ -27,7 +27,7 @@ $.ajax({
     url: "https://dog.ceo/api/breeds/image/random/" + keyword,
     dataType: "json",
     success: function(data, status) {
-        $('#image').html("<img src='"+ data.hits[ randomImage ].message +"' width='500'>");
+        $('#image').html("<img src='"+ message +"' width='500'>");
         console.log("Test");
         }
     }); //ajax 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Pixabay API Demo </title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+body {
+text-align: center;
+background: #A1D9BC;
+font: #0000A0;
+}
+img {
+border-radius: 20px;
+}
+button{
+background: blue;
+border-radius: 25px;
+height: 25px;
+}
+
+</style>
+<script>
+
+function searchImage() {
+$.ajax({
+    type: "GET",
+    url: "https://dog.ceo/api/breeds/image/random/" + keyword,
+    dataType: "json",
+    success: function(data, status) {
+        let randomImage = Math.floor(Math.random() * data.hits.length);
+        $('#image').html("<img src='"+ data.hits[ randomImage ].message +"' width='500'>");
+        }
+    }); //ajax 
+}//searchImage()
+
+</script>
+</head>
+<body>
+
+<h1> Random Dog Gallery </h1>
+Please enter the number of random images you would like to generate <br>
+Number of Images: <input type="text" id="keyword"/> 
+
+<button onclick="searchImage()"> Generate </button>
+<br /><br />
+
+<div id="image"></div>
+
+</body>
+</html>

@@ -11,6 +11,7 @@ background: blue;
 border-radius: 25px;
 height: 25px;
 }
-info{
-    
+.info{
+    font-size: 25px;
+    margin: 50px;
 }

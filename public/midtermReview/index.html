@@ -21,17 +21,33 @@ height: 25px;
 </style>
 <script>
 
+// function midtermFunction(){
+//     var action_src = "http://localhost/test/" + document.getElementsByName("keywords")[0].value;
+//     var your_form = document.getElementById('your_form');
+//     your_form.action = action_src ;
+// }
+
 function searchImage() {
-$.ajax({
-    type: "GET",
-    url: "https://dog.ceo/api/breeds/image/random/" + keyword,
-    dataType: "json",
-    success: function(data, status) {
-        $('#image').html("<img src='"+ message +"' width='500'>");
-        console.log("Test");
-        }
-    }); //ajax 
-}//searchImage()
+    $("#image").empty();
+    
+    var action_src = $("#keyword").val();
+    var urlLink = "https://dog.ceo/api/breeds/image/random/";
+    fuckit = urlLink + action_src;
+    
+    $.ajax({
+        type: "GET",
+        url: fuckit,
+        dataType: "json",
+        success: function(data) {
+            data.message.forEach(function(link){
+                //var image =<//something>
+                var image = link;
+                console.log(link);
+                $("#image").append("<img src='"+ image+"' width='350' height='350'>");
+            });
+            }
+        }); //ajax 
+    }//searchImage()
 
 </script>
 </head>
@@ -39,9 +55,10 @@ $.ajax({
 
 <h1> Random Dog Gallery </h1>
 Please enter the number of random images you would like to generate <br>
-Number of Images: <input type="text" id="keyword"/> 
 
-<button onclick="searchImage()"> Generate </button>
+Number of Images: <input type="text" id="keyword" placeholder="0"> 
+<button type="submit" onclick="searchImage()"> Generate </button>
+
 <br /><br />
 
 <div id="image"></div>

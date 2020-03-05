@@ -7,14 +7,14 @@ function searchISBN() {
        dataType: "json",
        success: function(data){
            console.log(data);
-           $("#info").append("<img src='"+ data["ISBN:0451526538"]["cover"]["large"]+"' width='350' height='350'>");
-           $('#info').append("<br>Title: " + data["ISBN:0451526538"]["title"]);
-           $('#info').append("<br>Author: " + data["ISBN:0451526538"]["authors"]["0"]["name"]);
-           $('#info').append("<br>Publish: " + data["ISBN:0451526538"]["publish_date"]);
+           $("#info").append("<img src='"+ data["ISBN:" + $("#ISBN").val()]["cover"]["large"]+"' width='350' height='350'>");
+           $('#info').append("<br>Title: " + data["ISBN:" + $("#ISBN").val()]["title"]);
+           $('#info').append("<br>Author: " + data["ISBN:" + $("#ISBN").val()]["authors"]["0"]["name"]);
+           $('#info').append("<br>Publish: " + data["ISBN:"+ $("#ISBN").val()]["publish_date"]);
            //$('#information').append("<br>Publisher: " + data["ISBN:0451526538"]["publishers"]["0"]["name"]);
            $('#info').append("<br>Publisher: " + data[""]);
-           $('#info').append("<br>ISBN: " + data["ISBN:0451526538"]["identifiers"]["isbn_10"]);
-           $('#info').append("<br>Pages: " + data["ISBN:0451526538"]["number_of_pages"]);
+           $('#info').append("<br>ISBN: " + data["ISBN:" + $("#ISBN").val()]["identifiers"]["isbn_10"]);
+           $('#info').append("<br>Pages: " + data["ISBN:" + $("#ISBN").val()]["number_of_pages"]);
        }
        
     });

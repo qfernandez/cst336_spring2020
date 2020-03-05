@@ -7,6 +7,7 @@ function searchISBN() {
        dataType: "json",
        success: function(data){
            console.log(data);
+           $("#info").append("<img src='"+ data["ISBN:0451526538"]["cover"]["large"]+"' width='350' height='350'>");
            $('#info').append("<br>Title: " + data["ISBN:0451526538"]["title"]);
            $('#info').append("<br>Author: " + data["ISBN:0451526538"]["authors"]["0"]["name"]);
            $('#info').append("<br>Publish: " + data["ISBN:0451526538"]["publish_date"]);

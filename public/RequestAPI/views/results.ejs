@@ -1,0 +1,23 @@
+<%- include ('templates/header'); -%>
+
+<div class='container'>
+    <div class='jumbotron'>
+        <h1> SEARCH RESULTS </h1>
+        <button class='btn btn-info' onclick='location.href="/";'>Search Again</button>
+    </div>
+
+    <ul id='movies-list'>
+        <% data.Search.forEach(function(movie){%>
+        console.log(movie);
+	        <li> 
+	            <img class='poster' src=<%=movie.cover%> />
+	            <div>
+                    <h5><%=movie.title%></h5>
+                    <p><%=movie.publish_date%></p>
+                </div>
+	        </li>	
+        <% }); %>
+    <ul>
+</div>
+
+<%- include ('templates/footer'); -%>
